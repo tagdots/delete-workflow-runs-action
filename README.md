@@ -53,7 +53,7 @@ jobs:
 
     - name: Run stale-workflow-runs
       id: stale-workflow-runs
-      uses: tagdots/delete-workflow-runs-action@xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx # 1.0.0
+      uses: tagdots/delete-workflow-runs-action@84559d20c720030c3745676fdeddcddd2133fd3d # 1.0.0
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -93,7 +93,7 @@ jobs:
       contents: read
 
     - id: delete-workflow-runs
-      uses: tagdots/delete-workflow-runs-action@main
+      uses: tagdots/delete-workflow-runs-action@84559d20c720030c3745676fdeddcddd2133fd3d # 1.0.0
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -134,7 +134,7 @@ jobs:
       contents: read
 
     - id: delete-workflow-runs
-      uses: tagdots/delete-workflow-runs-action@main
+      uses: tagdots/delete-workflow-runs-action@84559d20c720030c3745676fdeddcddd2133fd3d # 1.0.0
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
