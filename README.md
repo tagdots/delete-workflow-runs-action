@@ -12,7 +12,7 @@ This action runs [delete-workflow-runs](https://github.com/tagdots/delete-workfl
 ## ⭐ Why switch to delete-workflow-runs-action?
 Among all the actions on the GitHub marketplace that delete workflow runs,
 
-- we share evidence of "coverage run" tests in action (click Code Coverage badge).
+- we share evidence of "coverage run" tests in action (click `Code Coverage` badge).
 - we reduce your supply chain risks with `openssf best practices` in our SDLC and operations.
 - we identify orphan workflow runs that should be deleted when the parent workflow is deleted.
 - we produce API rate limit consumption estimate in dry-run, so you can plan your delete task properly.
@@ -28,7 +28,7 @@ Use the workflow examples below to create your own workflow inside `.github/work
 
 * runs on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
 * uses GitHub Token with permissions: `actions: read` and `contents: read`
-* performs a **MOCK delete** and provides an estimate of API rate limit consumption (`dry-run: false`)
+* performs a **MOCK delete** and provides an estimate of API rate limit consumption (`dry-run: true`)
 * keeps the last 10 workflow runs for each workflow and delete the rest (`min-runs: 10`)
 
 ### Example 1 - workflow
@@ -109,9 +109,9 @@ jobs:
 
 * runs on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
 * uses GitHub Token with permissions: `actions: read` and `contents: read`
-* performs a REAL delete (`dry-run: true`)
+* performs a **MOCK delete** and provides an estimate of API rate limit consumption (`dry-run: true`)
 * keeps the workflow runs in the last 10 days for each workflow and delete the rest (`max-days: 10`)
-* gets data from workflow run to feed data for another steps/jobs e.g. notification or delete action
+* gets data from workflow run, and feeds data for another steps/jobs e.g. notification or delete action
 
 ### Example 3 - workflow
 ```

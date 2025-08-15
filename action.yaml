@@ -1,6 +1,6 @@
-name: action"
+name: delete-workflow-runs-action
 
-description: 'delete workflow runs'
+description: 'Run delete-workflow-runs to delete GitHub Action workflow runs'
 
 author: tagdots
 
