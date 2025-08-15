@@ -18,32 +18,39 @@ permissions:
     pull-requests: read
 
 jobs:
-  badge-demo: # https://github.com/tagdots/setup-badge-action
+  badge-marketplace: # https://github.com/tagdots/setup-badge-action
+      runs-on: ubuntu-latest
+
+      permissions:
+        contents: write
+
+      steps:
+      - id: marketplace-badge
+        uses: tagdots/setup-badge-action@d450907c2ddc3c94b5eaed20f521eb4846475937 # 1.0.4
+        with:
+          badge-name: marketplace
+          badge-url: https://github.com/marketplace/actions/delete-workflow-runs-action
+          label: Marketplace
+          message: delete-workflow-runs-action
+          message-color: FF6360
+
+  stale-workflow-runs: # https://github.com/tagdots/delete-workflow-runs-action
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
-
-    steps:
-    - id: badge-demo
-      uses: tagdots/setup-badge-action@d450907c2ddc3c94b5eaed20f521eb4846475937 # 1.0.4
-
-  stale-workflows: # https://github.com/Mattraks/delete-workflow-runs
-    runs-on: ubuntu-latest
-
-    permissions:
-      contents: read
       actions: write
+      contents: read
 
     steps:
-    - name: Run stale-workflows
-      id: stale-workflows
-      uses: Mattraks/delete-workflow-runs@39f0bbed25d76b34de5594dceab824811479e5de # v2.0.6
+    - name: Run stale-workflow-runs
+      id: stale-workflow-runs
+      uses: tagdots/delete-workflow-runs-action@main
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-        repository: ${{ github.repository }}
-        retain_days: 5
-        keep_minimum_runs: 8
+        repo-url: ${{ github.repository }}
+        max-days: 10
+        dry-run: false
 
   stale-issues-prs: # https://github.com/actions/stale
     runs-on: ubuntu-latest
@@ -64,27 +71,6 @@ jobs:
         days-before-close: 3
         operations-per-run: 40
 
-  stale-branches: # https://github.com/crs-k/stale-branches
-    runs-on: ubuntu-latest
-
-    permissions:
-      issues: write
-      contents: write
-      pull-requests: read
-
-    steps:
-    - name: Run stale-branches
-      id: stale-branches
-      uses: crs-k/stale-branches@de68d9358068be991f64ad9058487e2484925d9a # v8.2.1
-      with:
-        # days-before-stale cannot be greater than or equal to days-before-delete
-        branches-filter-regex: '^((?!main|badge))'
-        days-before-stale: 4
-        days-before-delete: 6
-        include-protected-branches: true
-        pr-check: true
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-
   update-pre-commit: # https://github.com/tagdots/update-pre-commit-action
     runs-on: ubuntu-latest
 
@@ -103,14 +89,14 @@ jobs:
         dry-run: false
         open-pr: true
 
-  notify-slack:
+  notify-slack: # https://github.com/slackapi/slack-github-action
     if: always()
-    needs: [badge-demo, stale-workflows, stale-issues-prs, stale-branches, update-pre-commit]
+    needs: [badge-marketplace, stale-workflow-runs, stale-issues-prs, update-pre-commit]
 
     runs-on: ubuntu-latest
 
     outputs:
-      WORKFLOW_RESULT: ${{ steps.get-previous-jobs-results.outputs.WORKFLOW_RESULT }}
+      WORKFLOW_RESULT: ${{ steps.get-overall-jobs-results.outputs.WORKFLOW_RESULT }}
 
     steps:
     - name: Get Overall Jobs Results
@@ -118,7 +104,7 @@ jobs:
       shell: bash
       run: |
         # get overall result from all of the previous jobs
-        if "${{ needs.badge-demo.result == 'success' && needs.stale-workflows.result == 'success' && needs.stale-issues-prs.result == 'success' && needs.stale-branches.result == 'success' && needs.update-pre-commit.result == 'success' }}"; then
+        if "${{ needs.badge-marketplace.result == 'success' && needs.stale-workflow-runs.result == 'success' && needs.stale-issues-prs.result == 'success' && needs.update-pre-commit.result == 'success' }}"; then
           echo "WORKFLOW_RESULT=:white_check_mark:" >> "$GITHUB_OUTPUT"
         else
           echo "WORKFLOW_RESULT=:no_entry:" >> "$GITHUB_OUTPUT"
@@ -136,9 +122,8 @@ jobs:
               *Workflow : ${{ github.workflow }} ${{ steps.get-overall-jobs-results.outputs.WORKFLOW_RESULT }}*
               ```
               URL: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}\n
-              Job: badge-demo        - ${{ needs.badge-demo.result }}\n
-              Job: stale-workflows   - ${{ needs.stale-workflows.result }}\n
-              Job: stale-issues-prs  - ${{ needs.stale-issues-prs.result }}\n
-              Job: stale-branches    - ${{ needs.stale-branches.result }}\n
-              Job: update-pre-commit - ${{ needs.update-pre-commit.result }}
+              Job: badge-marketplace   - ${{ needs.badge-marketplace.result }}\n
+              Job: stale-workflow-runs - ${{ needs.stale-workflow-runs.result }}\n
+              Job: stale-issues-prs    - ${{ needs.stale-issues-prs.result }}\n
+              Job: update-pre-commit   - ${{ needs.update-pre-commit.result }}
               ```"
