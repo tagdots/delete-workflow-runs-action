@@ -2,14 +2,14 @@
 
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/11003/badge)](https://www.bestpractices.dev/projects/11003)
 [![CI](https://github.com/tagdots/delete-workflow-runs/actions/workflows/ci.yaml/badge.svg)](https://github.com/tagdots/delete-workflow-runs/actions/workflows/ci.yaml)
-[![marketplace](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/tagdots/delete-workflow-runs/refs/heads/badges/badges/marketplace.json)](https://github.com/marketplace/actions/delete-workflow-runs-action)
+[![marketplace](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/tagdots/delete-workflow-runs/refs/heads/badges/badges/marketplace.json)](https://github.com/marketplace/actions/delete-workflow-runs-in-github-action)
 [![coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/tagdots/delete-workflow-runs/refs/heads/badges/badges/coverage.json)](https://github.com/tagdots/delete-workflow-runs/actions/workflows/cron-tasks.yaml)
 
-This action runs [delete-workflow-runs](https://github.com/tagdots/delete-workflow-runs) to delete GitHub Action workflows runs.
+This action runs [delete-workflow-runs](https://github.com/marketplace/actions/delete-workflow-runs-in-github-action) to delete GitHub Action workflows runs.
 
 <br>
 
-## ⭐ Why switch to delete-workflow-runs-action?
+## ⭐ Why switch to delete-workflow-runs-in-github-action?
 Among all the actions on the GitHub marketplace that delete workflow runs,
 
 - we share evidence of "coverage run" tests in action (click `Code Coverage` badge).
@@ -24,7 +24,7 @@ Among all the actions on the GitHub marketplace that delete workflow runs,
 Use the workflow examples below to create your own workflow inside `.github/workflows/`.
 
 ### Example 1 - summary
-**delete-workflow-runs-action**:
+**delete-workflow-runs-in-github-action**:
 
 * runs on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
 * uses GitHub Token with permissions: `actions: read` and `contents: read`
@@ -65,7 +65,7 @@ jobs:
 <br>
 
 ### Example 2 - summary
-**delete-workflow-runs-action**:
+**delete-workflow-runs-in-github-action**:
 
 * runs on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
 * uses GitHub Token with permissions: `actions: write` and `contents: read`
@@ -105,7 +105,7 @@ jobs:
 <br>
 
 ### Example 3 - summary
-**delete-workflow-runs-action**:
+**delete-workflow-runs-in-github-action**:
 
 * runs on a scheduled interval - every day at 5:30 pm UTC  (`- cron: '30 17 * * *'`)
 * uses GitHub Token with permissions: `actions: read` and `contents: read`
