@@ -5,7 +5,7 @@
 [![marketplace](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/tagdots/delete-workflow-runs/refs/heads/badges/badges/marketplace.json)](https://github.com/marketplace/actions/delete-workflow-runs-in-github-action)
 [![coverage](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/tagdots/delete-workflow-runs/refs/heads/badges/badges/coverage.json)](https://github.com/tagdots/delete-workflow-runs/actions/workflows/cron-tasks.yaml)
 
-This action runs [delete-workflow-runs](https://github.com/marketplace/actions/delete-workflow-runs-in-github-action) to delete GitHub Action workflows runs.
+This action runs [delete-workflow-runs](https://github.com/tagdots/delete-workflow-runs) to delete GitHub Action workflows runs.
 
 <br>
 
