@@ -1,4 +1,4 @@
-name: delete-workflow-runs-action
+name: "delete-workflow-runs action"
 
 description: 'Run delete-workflow-runs to delete GitHub Action workflow runs'
 
